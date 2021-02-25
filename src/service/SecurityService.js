@@ -8,7 +8,8 @@ export function authenticate(login){
     
     const config = { method: 'POST',
                    body : JSON.stringify(login) ,
-                   headers : myHeaders
+                   headers :{"Content-Type": "application/json", 
+                   "Authorization": "Bearer "}
                 };
 
     return fetch(`${CONFIG.apiUrl}security/authenticate`, config).then(response => {
@@ -24,10 +25,26 @@ export function resetPassword(resetPasswordJson){
     
     const config = { method: 'POST',
                    body : JSON.stringify(resetPasswordJson) ,
-                   headers : myHeaders
-                };
+                   headers :{"Content-Type": "application/json", 
+                   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzd2FnZ2VyIiwiZXhwIjozNDE0MjgzNTc5LCJpYXQiOjE2MTQyODM1OTd9.EHboBqOkIPPqFSCszn7-Iyesn_yZsgzcORcSJWQCXFknO5IfQBrF_mX4peFU-AMDVHiOW8yQHWKa4K5yuv23UA"}                };
 
     return fetch(`${CONFIG.apiUrl}security/reset-password`, config).then(response => {
+        return response.json();
+    })
+
+}
+
+
+export function newPassword(newPassword, token){
+
+    const config = { method: 'POST',
+                   body : JSON.stringify(newPassword) ,
+                   headers :{"Content-Type": "application/json", 
+                   "Authorization": "Bearer "}
+                };
+        console.log(config)
+
+    return fetch(`${CONFIG.apiUrl}security/new-password`, config).then(response => {
         return response.json();
     })
 

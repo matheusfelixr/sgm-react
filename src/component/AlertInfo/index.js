@@ -15,8 +15,6 @@ class AlertInfo extends React.Component {
 
     
   componentDidMount() {
-    console.log(this.state.show)
-
     setTimeout(
         function() {
             this.setState({ show: false });
