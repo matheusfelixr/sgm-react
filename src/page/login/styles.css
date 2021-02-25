@@ -1,0 +1,26 @@
+.login{
+    margin-top: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-login{
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+}
+.containert-btn{
+    padding-top: 34px;
+}
+.btn{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.container-buton-redirect{
+    padding-top: 10px;
+}
