@@ -40,11 +40,11 @@ export function newPassword(newPassword, token){
     const config = { method: 'POST',
                    body : JSON.stringify(newPassword) ,
                    headers :{"Content-Type": "application/json", 
-                   "Authorization": "Bearer "}
+                   "Authorization": "Bearer "+ token}
                 };
         console.log(config)
 
-    return fetch(`${CONFIG.apiUrl}security/new-password`, config).then(response => {
+    return fetch(`${CONFIG.apiUrl}security/password`, config).then(response => {
         return response.json();
     })
 

@@ -113,7 +113,7 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
   render() {
-    document.body.style = 'background: #46a0f5;';
+    // document.body.style = 'background: #46a0f5;';
     return (
       <div>
         <div className="login">
