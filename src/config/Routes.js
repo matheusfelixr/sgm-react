@@ -5,7 +5,7 @@ import PrivateRoute from '../config/PrivateRoute';
 
 
 import Login from '../page/login/index';
-import Miling from '../page/miling/index';
+import Milling from '../page/milling/index';
 import NotFound from '../page/not-found';
 
 
@@ -13,7 +13,7 @@ import NotFound from '../page/not-found';
 const Routes = () => (
     <Router history = {history}>
         <Switch>
-            <PrivateRoute exact path="/miling" component={Miling}/>
+            <PrivateRoute exact path="/milling" component={Milling}/>
             <Route exact path="/" component={Login}/>
             {/* <Route component={NotFound}/> */}
         </Switch>

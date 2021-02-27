@@ -26,9 +26,9 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    const isLogged = !!localStorage.getItem('user')
+    const isLogged = !!localStorage.getItem('token')
     if (isLogged) {
-      history.push('/miling')
+      history.push('/milling')
     }
   }
 
@@ -43,8 +43,9 @@ export default class Login extends Component {
       if (response.data != null) {
         if (!response.data.changePassword) {
           localStorage.clear();
-          localStorage.setItem('user', JSON.stringify(response.data))
-          history.push('/miling')
+          localStorage.setItem('user', response.data.userName);
+          localStorage.setItem('token', response.data.token);
+          history.push('/milling')
         } else {
           this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token : response.data.token })
         }
@@ -96,8 +97,9 @@ export default class Login extends Component {
     newPassword(newPasswordJson, this.state.token).then(response => {
       if (response.data != null) {
         localStorage.clear();
-        localStorage.setItem('user', JSON.stringify(response.data))
-        history.push('/miling')
+        localStorage.setItem('user', response.data.userName);
+        localStorage.setItem('token', response.data.token);
+        history.push('/milling')
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger" })
       }
