@@ -228,15 +228,14 @@ export default class Milling extends Component {
             </Modal.Header>
             <Modal.Body>
               <Form>
-
-                <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Group controlId="selectReansonMailling">
                   <Form.Label>Status</Form.Label>
                   <Form.Control as="select" size="md" onChange={this.selectedReasonHandleChange}>
                     <option value="" disabled selected>Selecione</option>
                     {
-                      this.state.reansonMillings.map(function (e) {
+                      this.state.reansonMillings.map((e, index) => {
 
-                        return <option key={e.key} value={e.reasonMailling}>{e.reasonMailling}</option>
+                        return <option key={e.index} value={e.reasonMailling}>{e.reasonMailling}</option>
                       })
                     }
                   </Form.Control>
