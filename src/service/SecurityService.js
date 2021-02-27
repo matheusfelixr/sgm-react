@@ -2,10 +2,6 @@ import {CONFIG} from '../config/api';
 
 
 export function authenticate(login){
-    const myHeaders = new Headers({
-        "Content-Type": "application/json"
-      });
-    
     const config = { method: 'POST',
                    body : JSON.stringify(login) ,
                    headers :{"Content-Type": "application/json", 
@@ -19,9 +15,6 @@ export function authenticate(login){
 }
 
 export function resetPassword(resetPasswordJson){
-    const myHeaders = new Headers({
-        "Content-Type": "application/json"
-      });
     
     const config = { method: 'POST',
                    body : JSON.stringify(resetPasswordJson) ,

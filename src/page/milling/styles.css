@@ -1,8 +1,12 @@
 .container{
-    margin-top: 80px;
+    margin-top: 45px;
     border: 1px solid rgb(223, 217, 217);
-    background-color: #f1f1f1;
+    background-color: #f1f1f166;
+    border-radius: 5px;
 }
 .container-info{
     padding: 20px;
+}
+.form-control:disabled{
+    background-color: #d8d8d9ed  !important;
 }
