@@ -10,3 +10,13 @@
 .form-control:disabled{
     background-color: #d8d8d9ed  !important;
 }
+.user {
+    font-size: 20px;
+    margin-right: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

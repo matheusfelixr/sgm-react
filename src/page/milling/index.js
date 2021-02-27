@@ -14,6 +14,7 @@ import AlertInfo from '../../component/AlertInfo';
 
 
 
+
 export default class Milling extends Component {
 
   constructor(props) {
@@ -65,6 +66,11 @@ export default class Milling extends Component {
 
   }
 
+  exit = () => {
+    localStorage.clear();
+    history.push('/');
+  };
+
   copyToClipboard = (e) => {
     navigator.clipboard.writeText(e);
   };
@@ -79,7 +85,9 @@ export default class Milling extends Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <a> {localStorage.getItem('user')}</a>
+              <span className="user"> {localStorage.getItem('user')}  </span>
+              <span  className="cursor-pointer" onClick={() => this.exit()}>sair</span>
+
             </Navbar.Text>
           </Navbar.Collapse>
         </Navbar>
