@@ -34,7 +34,7 @@ export default class Login extends Component {
   }
 
   authenticate = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger",  isLoader: true })
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true })
 
     const authenticateJson = {
       username: this.state.user,
@@ -49,46 +49,46 @@ export default class Login extends Component {
           history.push('/milling')
           this.setState({ isLoader: false })
         } else {
-          this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token : response.data.token, isLoader: false})
+          this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token: response.data.token, isLoader: false })
         }
 
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao fazer login", alertShow: true, variant: "danger", isLoader: false})
+      this.setState({ error: "Erro inesperado ao fazer login", alertShow: true, variant: "danger", isLoader: false })
     });
 
   }
 
   resetPassword = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true })
 
     const resetPasswordJson = {
       username: this.state.user,
     }
     resetPassword(resetPasswordJson).then(response => {
       if (response.data != null) {
-        this.setState({ error: response.data.message, alertShow: true, variant: "success", isResetPassword: false, isLogin: true, isLoader: false})
+        this.setState({ error: response.data.message, alertShow: true, variant: "success", isResetPassword: false, isLogin: true, isLoader: false })
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false})
+      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false })
     });
 
   }
 
 
   newPassword = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true })
 
     if (this.state.newPassword != this.state.password) {
-      this.setState({ error: "As senhas devem ser iguais", alertShow: true, variant: "danger", isLoader: false})
+      this.setState({ error: "As senhas devem ser iguais", alertShow: true, variant: "danger", isLoader: false })
       return;
     }
 
@@ -104,12 +104,12 @@ export default class Login extends Component {
         history.push('/milling')
         this.setState({ isLoader: false })
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false})
+      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false })
     });
 
   }
@@ -121,8 +121,7 @@ export default class Login extends Component {
     // document.body.style = 'background: #46a0f5;';
     return (
       <div>
-                  <Loader show={this.state.isLoader}/>
-
+        <Loader show={this.state.isLoader} />
         <div className="login">
           {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
           {/* tela do tipo login */}
