@@ -1,0 +1,7 @@
+docker build . -t matheusfelixr/sgm-react:latest
+
+docker push ec2-3-17-151-246.us-east-2.compute.amazonaws.com:7003/harphya-demo-legacy:latest
+
+docker run -p 3000:3000 --name sgm-react -d matheusfelixr/sgm-react:latest
+
+docker pull ec2-3-17-151-246.us-east-2.compute.amazonaws.com:7003/harphya-demo-legacy:latest

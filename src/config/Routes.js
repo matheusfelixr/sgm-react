@@ -6,8 +6,6 @@ import PrivateRoute from '../config/PrivateRoute';
 
 import Login from '../page/login/index';
 import Milling from '../page/milling/index';
-import NotFound from '../page/not-found';
-
 
 
 const Routes = () => (
