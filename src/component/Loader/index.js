@@ -7,7 +7,6 @@ export default class Loader extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
     }
 
     render() {

@@ -35,7 +35,6 @@ export function newPassword(newPassword, token){
                    headers :{"Content-Type": "application/json", 
                    "Authorization": "Bearer "+ token}
                 };
-        console.log(config)
 
     return fetch(`${CONFIG.apiUrl}security/password`, config).then(response => {
         return response.json();

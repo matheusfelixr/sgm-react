@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './styles.css';
 import { nextMailling } from '../../service/MaillingService'
+import { getReansonMilling, getStatusByReasonMilling } from '../../service/StatusMaillingService'
+
 import { history } from '../../config/History'
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import AlertInfo from '../../component/AlertInfo';
 import Loader from '../../component/Loader';
+import Modal from 'react-bootstrap/Modal'
 
 export default class Milling extends Component {
 
@@ -34,6 +37,9 @@ export default class Milling extends Component {
       },
       isLoader: false,
       isAttending: false,
+      isShowModal: false,
+      reansonMillings: [],
+      statusMaillings: []
     }
   }
 
@@ -45,10 +51,9 @@ export default class Milling extends Component {
   }
 
   nextMailling = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true,isAttending: true })
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
     nextMailling().then(response => {
-      console.log(response)
       if (response.data != null) {
         this.setState({ error: "Sucesso ao buscar mailling", alertShow: true, variant: "success", form: response.data, isLoader: false })
       } else {
@@ -62,6 +67,53 @@ export default class Milling extends Component {
 
   }
 
+  getReansonMilling = () => {
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
+
+    getReansonMilling().then(response => {
+      if (response.data != null) {
+
+        this.setState({ reansonMillings: response.data, isLoader: false })
+      } else {
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
+      }
+
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ error: "Erro inesperado ao buscar status", alertShow: true, variant: "danger", isLoader: false })
+    });
+
+  }
+
+
+  getStatusByReasonMilling = (reansonMilling) => {
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
+
+    getStatusByReasonMilling(reansonMilling).then(response => {
+      if (response.data != null) {
+        console.log(response)
+        this.setState({statusMaillings: response.data, isLoader: false })
+      } else {
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
+      }
+
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ error: "Erro inesperado ao buscar status", alertShow: true, variant: "danger", isLoader: false })
+    });
+
+  }
+
+  opaopa = () => {
+    console.log(this.state.reansonMilling)
+  };
+
+  endService = () => {
+    this.setState({ isShowModal: true })
+    this.getReansonMilling()
+  };
+
+
   exit = () => {
     localStorage.clear();
     history.push('/');
@@ -70,6 +122,10 @@ export default class Milling extends Component {
   copyToClipboard = (e) => {
     navigator.clipboard.writeText(e);
   };
+
+  selectedReasonHandleChange = event => {
+    this.getStatusByReasonMilling(event.target.value )
+  }
 
   render() {
     document.body.style = 'background: white;';
@@ -159,11 +215,46 @@ export default class Milling extends Component {
                 </Form>
                 <Row className="justify-content-end">
                   <Col xs lg="2" >
-                    <Button variant="success" onClick={() => this.newPassword()}>Finalizar</Button>
+                    <Button variant="success" onClick={() => this.endService()}>Finalizar</Button>
                   </Col>
                 </Row>
               </div>}
           </div>
+
+
+          <Modal show={this.state.isShowModal} onHide={() => this.setState({ isShowModal: false })} backdrop="static" keyboard={false}>
+            <Modal.Header closeButton>
+              <Modal.Title>Finalizar Atendimento</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+
+                <Form.Group controlId="exampleForm.ControlSelect1">
+                  <Form.Label>Status</Form.Label>
+                  <Form.Control as="select" size="md" onChange={this.selectedReasonHandleChange}>
+                    <option value="" disabled selected>Selecione</option>
+                    {
+                      this.state.reansonMillings.map(function (e) {
+
+                        return <option key={e.key} value={e.reasonMailling}>{e.reasonMailling}</option>
+                      })
+                    }
+                  </Form.Control>
+                </Form.Group>
+
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="success" onClick={() => this.opaopa()}>Finalizar</Button>
+            </Modal.Footer>
+          </Modal>
+
+
+
+
+
+
+
         </Container>
       </div >
     );
