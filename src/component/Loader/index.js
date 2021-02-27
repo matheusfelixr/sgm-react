@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSync} from '@fortawesome/free-solid-svg-icons'
+import { faSync } from '@fortawesome/free-solid-svg-icons'
 
-export default class Loader extends Component{
+export default class Loader extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         console.log(props)
     }
 
     render() {
         return (
-            this.props.show ?
+            <div> {this.props.show &&
 
-            <div className="modal">
-                <FontAwesomeIcon icon={faSync} color='white' spin={true} style={{ fontSize:'70px'}}/>
-            </div> :<></>
+                <div className="modal">
+                    <FontAwesomeIcon icon={faSync} color='white' spin={true} style={{ fontSize: '70px' }} />
+                </div>}
+            </div>
         )
     }
 }

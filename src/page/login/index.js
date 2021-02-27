@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { history } from '../../config/History'
 import { authenticate, resetPassword, newPassword } from '../../service/SecurityService'
 import AlertInfo from '../../component/AlertInfo';
-
+import Loader from '../../component/Loader';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ export default class Login extends Component {
       isLogin: true,
       isResetPassword: false,
       isChangePassword: false,
+      isLoader: false,
     }
   }
 
@@ -33,7 +34,7 @@ export default class Login extends Component {
   }
 
   authenticate = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger" })
+    this.setState({ error: "", alertShow: false, variant: "danger",  isLoader: true })
 
     const authenticateJson = {
       username: this.state.user,
@@ -46,47 +47,48 @@ export default class Login extends Component {
           localStorage.setItem('user', response.data.userName);
           localStorage.setItem('token', response.data.token);
           history.push('/milling')
+          this.setState({ isLoader: false })
         } else {
-          this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token : response.data.token })
+          this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token : response.data.token, isLoader: false})
         }
 
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger" })
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao fazer login", alertShow: true, variant: "danger" })
+      this.setState({ error: "Erro inesperado ao fazer login", alertShow: true, variant: "danger", isLoader: false})
     });
 
   }
 
   resetPassword = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger" })
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
 
     const resetPasswordJson = {
       username: this.state.user,
     }
     resetPassword(resetPasswordJson).then(response => {
       if (response.data != null) {
-        this.setState({ error: response.data.message, alertShow: true, variant: "success", isResetPassword: false, isLogin: true })
+        this.setState({ error: response.data.message, alertShow: true, variant: "success", isResetPassword: false, isLogin: true, isLoader: false})
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger" })
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger" })
+      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false})
     });
 
   }
 
 
   newPassword = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger" })
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
 
     if (this.state.newPassword != this.state.password) {
-      this.setState({ error: "As senhas devem ser iguais", alertShow: true, variant: "danger" })
+      this.setState({ error: "As senhas devem ser iguais", alertShow: true, variant: "danger", isLoader: false})
       return;
     }
 
@@ -100,13 +102,14 @@ export default class Login extends Component {
         localStorage.setItem('user', response.data.userName);
         localStorage.setItem('token', response.data.token);
         history.push('/milling')
+        this.setState({ isLoader: false })
       } else {
-        this.setState({ error: response.errors[0], alertShow: true, variant: "danger" })
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false})
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger" })
+      this.setState({ error: "Erro inesperado ao resetar senha", alertShow: true, variant: "danger", isLoader: false})
     });
 
   }
@@ -118,6 +121,8 @@ export default class Login extends Component {
     // document.body.style = 'background: #46a0f5;';
     return (
       <div>
+                  <Loader show={this.state.isLoader}/>
+
         <div className="login">
           {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
           {/* tela do tipo login */}
