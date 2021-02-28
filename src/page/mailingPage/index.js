@@ -58,11 +58,11 @@ export default class Mailing extends Component {
   }
 
   nextMailing = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
 
     nextMailing().then(response => {
       if (response.data != null) {
-        this.setState({ error: "Sucesso ao buscar mailing", alertShow: true, variant: "success", form: response.data, isLoader: false })
+        this.setState({ error: "Sucesso ao buscar mailing", alertShow: true, variant: "success", form: response.data, isLoader: false , isAttending: true })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
