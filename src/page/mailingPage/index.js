@@ -210,7 +210,7 @@ export default class Mailing extends Component {
               <div>
                 <Form>
                   <Form.Row>
-                    <Form.Group className="mb-1" controlId="formGridId" onClick={() => this.copyToClipboard(this.stateform.id)}>
+                    <Form.Group className="mb-1" controlId="formGridId" onClick={() => this.copyToClipboard(this.state.form.id)}>
                       <Form.Label>Código</Form.Label>
                       <Form.Control type="text" disabled value={this.state.form.id} />
                     </Form.Group>
