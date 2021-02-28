@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './styles.css';
+import {Redirect } from "react-router-dom";
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { history } from '../../config/History'
 import { authenticate, resetPassword, newPassword } from '../../service/SecurityService'
 import AlertInfo from '../../component/AlertInfo';
 import Loader from '../../component/Loader';
@@ -23,13 +24,14 @@ export default class Login extends Component {
       isResetPassword: false,
       isChangePassword: false,
       isLoader: false,
+      isRedirect: false
     }
   }
 
   componentDidMount() {
     const isLogged = !!localStorage.getItem('token')
     if (isLogged) {
-      history.push('/milling')
+      this.setState({isRedirect: true})
     }
   }
 
@@ -46,8 +48,7 @@ export default class Login extends Component {
           localStorage.clear();
           localStorage.setItem('user', response.data.userName);
           localStorage.setItem('token', response.data.token);
-          history.push('/milling')
-          this.setState({ isLoader: false })
+          this.setState({ isLoader: false, isRedirect: true })
         } else {
           this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token: response.data.token, isLoader: false })
         }
@@ -101,8 +102,7 @@ export default class Login extends Component {
         localStorage.clear();
         localStorage.setItem('user', response.data.userName);
         localStorage.setItem('token', response.data.token);
-        history.push('/milling')
-        this.setState({ isLoader: false })
+        this.setState({ isLoader: false, isRedirect: true})
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -183,6 +183,7 @@ export default class Login extends Component {
             </div>
           }
         </div>
+        {this.state.isRedirect && <Redirect to={{ pathname : '/milling', state:{ from: "/" } }} />}
       </div>
     );
   }

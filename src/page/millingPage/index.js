@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './styles.css';
+import {Redirect } from "react-router-dom";
+
 import { nextMilling, saveAttendance } from '../../service/MillingService'
 import { getReansonMilling, getStatusByReasonMilling } from '../../service/StatusMaillingService'
 import { maskCpfOrCnpj, maskPhone} from '../../Uteis/Mask'
-
-import { history } from '../../config/History'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
@@ -41,7 +41,8 @@ export default class Milling extends Component {
       isShowModal: false,
       reansonMillings: [],
       statusMillings: [],
-      statusMilling: ""
+      statusMilling: "",
+      isRedirect: false
 
     }
   }
@@ -49,7 +50,7 @@ export default class Milling extends Component {
   componentDidMount() {
     const isLogged = !!localStorage.getItem('token')
     if (!isLogged) {
-      history.push('/')
+      this.setState({isRedirect: true})
     }
   }
 
@@ -153,7 +154,7 @@ export default class Milling extends Component {
 
   exit = () => {
     localStorage.clear();
-    history.push('/');
+    this.setState({isRedirect: true})
   };
 
   copyToClipboard = (e) => {
@@ -303,6 +304,7 @@ export default class Milling extends Component {
             </Modal.Footer>
           </Modal>
         </Container>
+        {this.state.isRedirect && <Redirect to={{ pathname : '/', state:{ from: "/milling" } }} />}
       </div >
     );
   }
