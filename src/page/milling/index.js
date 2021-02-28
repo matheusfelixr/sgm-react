@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { nextMailling } from '../../service/MaillingService'
+import { nextMilling, saveAttendance } from '../../service/MillingService'
 import { getReansonMilling, getStatusByReasonMilling } from '../../service/StatusMaillingService'
+import { maskCpfOrCnpj, maskPhone} from '../../Uteis/Mask'
 
 import { history } from '../../config/History'
 
@@ -39,7 +40,9 @@ export default class Milling extends Component {
       isAttending: false,
       isShowModal: false,
       reansonMillings: [],
-      statusMaillings: []
+      statusMillings: [],
+      statusMilling: ""
+
     }
   }
 
@@ -50,10 +53,10 @@ export default class Milling extends Component {
     }
   }
 
-  nextMailling = () => {
+  nextMilling = () => {
     this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
-    nextMailling().then(response => {
+    nextMilling().then(response => {
       if (response.data != null) {
         this.setState({ error: "Sucesso ao buscar mailling", alertShow: true, variant: "success", form: response.data, isLoader: false })
       } else {
@@ -91,8 +94,7 @@ export default class Milling extends Component {
 
     getStatusByReasonMilling(reansonMilling).then(response => {
       if (response.data != null) {
-        console.log(response)
-        this.setState({statusMaillings: response.data, isLoader: false })
+        this.setState({ statusMillings: response.data, isLoader: false })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -104,15 +106,50 @@ export default class Milling extends Component {
 
   }
 
-  opaopa = () => {
-    console.log(this.state.reansonMilling)
+  saveAttendance = () => {
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
+
+    const saveAttendanceJson = {
+      idMailling: this.state.form.id,
+      idMaillingStatus: this.state.statusMilling,
+    }
+
+    saveAttendance(saveAttendanceJson).then(response => {
+      console.log(response)
+      if (response.data != null) {
+        this.setState({
+          error: response.message,
+          alertShow: true, variant: "sucess",
+          isLoader: false,
+          isAttending: false,
+          isShowModal: false,
+          reansonMillings: [],
+          statusMillings: [],
+          statusMilling: ""
+        })
+      } else {
+        this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
+      }
+
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ error: "Erro inesperado ao salvar atendimento", alertShow: true, variant: "danger", isLoader: false })
+    });
+  };
+
+
+  maskCpfOrCnpj = (cpfOrCnpj) => {
+    return maskCpfOrCnpj(cpfOrCnpj)
+  };
+
+  maskPhone = (phone) => {
+    return maskPhone(phone)
   };
 
   endService = () => {
     this.setState({ isShowModal: true })
     this.getReansonMilling()
   };
-
 
   exit = () => {
     localStorage.clear();
@@ -124,8 +161,13 @@ export default class Milling extends Component {
   };
 
   selectedReasonHandleChange = event => {
-    this.getStatusByReasonMilling(event.target.value )
+    this.getStatusByReasonMilling(event.target.value)
   }
+
+  selectedStatusHandleChange = event => {
+    this.setState({ statusMilling: event.target.value })
+  }
+
 
   render() {
     document.body.style = 'background: white;';
@@ -151,7 +193,7 @@ export default class Milling extends Component {
             {/* Verifica se quer fazer um atendimento */}
             {!this.state.isAttending &&
               <div>
-                <Button variant="warning" onClick={() => this.nextMailling()}>Iniciar Atendimento</Button>
+                <Button variant="warning" onClick={() => this.nextMilling()}>Iniciar Atendimento</Button>
 
               </div>
             }
@@ -184,9 +226,9 @@ export default class Milling extends Component {
                   </Form.Row>
 
                   <Form.Row>
-                    <Form.Group className="mb-2" controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.state.form.cpfCnpj)}>
+                    <Form.Group className="mb-2" controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.maskCpfOrCnpj(this.state.form.cpfCnpj))}>
                       <Form.Label>CPF/CNPJ</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.cpfCnpj} />
+                      <Form.Control type="text" disabled value={this.maskCpfOrCnpj(this.state.form.cpfCnpj)} />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridName" onClick={() => this.copyToClipboard(this.state.form.name)}>
@@ -196,19 +238,19 @@ export default class Milling extends Component {
                   </Form.Row>
 
                   <Form.Row>
-                    <Form.Group as={Col} controlId="formGridPhone1" onClick={() => this.copyToClipboard(this.state.form.phone1)}>
+                    <Form.Group as={Col} controlId="formGridPhone1" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone1))}>
                       <Form.Label>Telefone 1</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.phone1} />
+                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone1)} />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridPhone2" onClick={() => this.copyToClipboard(this.state.form.phone2)}>
+                    <Form.Group as={Col} controlId="formGridPhone2" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone2))}>
                       <Form.Label>Telefone 2</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.phone2} />
+                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone2)} />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridPhone3" onClick={() => this.copyToClipboard(this.state.form.phone3)} >
+                    <Form.Group as={Col} controlId="formGridPhone3" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone3))} >
                       <Form.Label>Telefone 3</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.phone3} />
+                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone3)} />
                     </Form.Group>
                   </Form.Row>
 
@@ -229,31 +271,37 @@ export default class Milling extends Component {
             <Modal.Body>
               <Form>
                 <Form.Group controlId="selectReansonMailling">
-                  <Form.Label>Status</Form.Label>
+                  <Form.Label>Motivo</Form.Label>
                   <Form.Control as="select" size="md" onChange={this.selectedReasonHandleChange}>
                     <option value="" disabled selected>Selecione</option>
                     {
                       this.state.reansonMillings.map((e, index) => {
 
-                        return <option key={e.index} value={e.reasonMailling}>{e.reasonMailling}</option>
+                        return <option key={index} value={e.reasonMailling}>{e.reasonMailling}</option>
                       })
                     }
                   </Form.Control>
                 </Form.Group>
 
+                <Form.Group controlId="selectStatus">
+                  <Form.Label>Sub Motivo</Form.Label>
+                  <Form.Control as="select" size="md" onChange={this.selectedStatusHandleChange}>
+                    <option value="" disabled selected>Selecione</option>
+                    {
+                      this.state.statusMillings.map((e, index) => {
+
+                        return <option key={index} value={e.id}>{e.description}</option>
+                      })
+                    }
+                  </Form.Control>
+                </Form.Group>
               </Form>
             </Modal.Body>
+
             <Modal.Footer>
-              <Button variant="success" onClick={() => this.opaopa()}>Finalizar</Button>
+              <Button variant="success" onClick={() => this.saveAttendance()}>Finalizar</Button>
             </Modal.Footer>
           </Modal>
-
-
-
-
-
-
-
         </Container>
       </div >
     );
