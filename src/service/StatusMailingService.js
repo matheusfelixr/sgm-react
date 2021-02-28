@@ -10,13 +10,13 @@ export function getReansonMailing(){
                    "Authorization": "Bearer "+ token}
                 };
 
-    return fetch(`${CONFIG.apiUrl}mailling-status/find-all-reason-mailling`, config).then(response => {
+    return fetch(`${CONFIG.apiUrl}mailing-status/find-all-reason-mailing`, config).then(response => {
         return response.json();
     })
 }
 
-export function getStatusByReasonMailing(reasonMailling){
-    console.log(reasonMailling)
+export function getStatusByReasonMailing(reasonMailing){
+    console.log(reasonMailing)
     var token= localStorage.getItem('token');
  
      const config = { method: 'GET',
@@ -24,7 +24,7 @@ export function getStatusByReasonMailing(reasonMailling){
                     "Authorization": "Bearer "+ token}
                  };
  
-     return fetch(`${CONFIG.apiUrl}mailling-status/get-by-reason-mailling/${reasonMailling}`, config).then(response => {
+     return fetch(`${CONFIG.apiUrl}mailing-status/get-by-reason-mailing/${reasonMailing}`, config).then(response => {
          return response.json();
      })
  }

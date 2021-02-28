@@ -14,7 +14,7 @@ export function nextMailing() {
 
     };
 
-    return fetch(`${CONFIG.apiUrl}mailling/get-next-mailling`, config).then(response => {
+    return fetch(`${CONFIG.apiUrl}mailing/get-next-mailing`, config).then(response => {
         return response.json();
     })
 }
@@ -30,7 +30,7 @@ export function saveAttendance(saveAttendanceJson) {
         }
     };
 
-    return fetch(`${CONFIG.apiUrl}mailling/save-attendance`, config).then(response => {
+    return fetch(`${CONFIG.apiUrl}mailing/save-attendance`, config).then(response => {
         return response.json();
     })
 

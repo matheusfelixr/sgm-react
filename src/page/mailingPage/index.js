@@ -62,14 +62,14 @@ export default class Mailing extends Component {
 
     nextMailing().then(response => {
       if (response.data != null) {
-        this.setState({ error: "Sucesso ao buscar mailling", alertShow: true, variant: "success", form: response.data, isLoader: false })
+        this.setState({ error: "Sucesso ao buscar mailing", alertShow: true, variant: "success", form: response.data, isLoader: false })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
 
     }).catch((error) => {
       console.log(error);
-      this.setState({ error: "Erro inesperado ao buscar novo mailling", alertShow: true, variant: "danger", isLoader: false })
+      this.setState({ error: "Erro inesperado ao buscar novo mailing", alertShow: true, variant: "danger", isLoader: false })
     });
 
   }
@@ -114,8 +114,8 @@ export default class Mailing extends Component {
     this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
     const saveAttendanceJson = {
-      idMailling: this.state.form.id,
-      idMaillingStatus: this.state.statusMailing,
+      idMailing: this.state.form.id,
+      idMailingStatus: this.state.statusMailing,
     }
 
     saveAttendance(saveAttendanceJson).then(response => {
@@ -278,14 +278,14 @@ export default class Mailing extends Component {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Group controlId="selectReansonMailling">
+                <Form.Group controlId="selectReansonMailing">
                   <Form.Label>Motivo</Form.Label>
                   <Form.Control as="select" size="md" onChange={this.selectedReasonHandleChange}>
                     <option value="" disabled selected>Selecione</option>
                     {
                       this.state.reansonMailings.map((e, index) => {
 
-                        return <option key={index} value={e.reasonMailling}>{e.reasonMailling}</option>
+                        return <option key={index} value={e.reasonMailing}>{e.reasonMailing}</option>
                       })
                     }
                   </Form.Control>
