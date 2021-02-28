@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './styles.css';
-import {Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import { nextMilling, saveAttendance } from '../../service/MillingService'
-import { getReansonMilling, getStatusByReasonMilling } from '../../service/StatusMaillingService'
-import { maskCpfOrCnpj, maskPhone} from '../../Uteis/Mask'
+import { nextMailing, saveAttendance } from '../../service/MailingService'
+import { getReansonMailing, getStatusByReasonMailing } from '../../service/StatusMailingService'
+import { maskCpfOrCnpj, maskPhone } from '../../Uteis/Mask'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
@@ -16,7 +16,10 @@ import AlertInfo from '../../component/AlertInfo';
 import Loader from '../../component/Loader';
 import Modal from 'react-bootstrap/Modal'
 
-export default class Milling extends Component {
+import mainLogo from '../../images/wise.png';
+
+
+export default class Mailing extends Component {
 
   constructor(props) {
     super(props);
@@ -39,9 +42,9 @@ export default class Milling extends Component {
       isLoader: false,
       isAttending: false,
       isShowModal: false,
-      reansonMillings: [],
-      statusMillings: [],
-      statusMilling: "",
+      reansonMailings: [],
+      statusMailings: [],
+      statusMailing: "",
       isRedirect: false
 
     }
@@ -50,14 +53,14 @@ export default class Milling extends Component {
   componentDidMount() {
     const isLogged = !!localStorage.getItem('token')
     if (!isLogged) {
-      this.setState({isRedirect: true})
+      this.setState({ isRedirect: true })
     }
   }
 
-  nextMilling = () => {
+  nextMailing = () => {
     this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
-    nextMilling().then(response => {
+    nextMailing().then(response => {
       if (response.data != null) {
         this.setState({ error: "Sucesso ao buscar mailling", alertShow: true, variant: "success", form: response.data, isLoader: false })
       } else {
@@ -71,13 +74,13 @@ export default class Milling extends Component {
 
   }
 
-  getReansonMilling = () => {
+  getReansonMailing = () => {
     this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
-    getReansonMilling().then(response => {
+    getReansonMailing().then(response => {
       if (response.data != null) {
 
-        this.setState({ reansonMillings: response.data, isLoader: false })
+        this.setState({ reansonMailings: response.data, isLoader: false })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -90,12 +93,12 @@ export default class Milling extends Component {
   }
 
 
-  getStatusByReasonMilling = (reansonMilling) => {
+  getStatusByReasonMailing = (reansonMailing) => {
     this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true, isAttending: true })
 
-    getStatusByReasonMilling(reansonMilling).then(response => {
+    getStatusByReasonMailing(reansonMailing).then(response => {
       if (response.data != null) {
-        this.setState({ statusMillings: response.data, isLoader: false })
+        this.setState({ statusMailings: response.data, isLoader: false })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -112,7 +115,7 @@ export default class Milling extends Component {
 
     const saveAttendanceJson = {
       idMailling: this.state.form.id,
-      idMaillingStatus: this.state.statusMilling,
+      idMaillingStatus: this.state.statusMailing,
     }
 
     saveAttendance(saveAttendanceJson).then(response => {
@@ -124,9 +127,9 @@ export default class Milling extends Component {
           isLoader: false,
           isAttending: false,
           isShowModal: false,
-          reansonMillings: [],
-          statusMillings: [],
-          statusMilling: ""
+          reansonMailings: [],
+          statusMailings: [],
+          statusMailing: ""
         })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
@@ -149,12 +152,12 @@ export default class Milling extends Component {
 
   endService = () => {
     this.setState({ isShowModal: true })
-    this.getReansonMilling()
+    this.getReansonMailing()
   };
 
   exit = () => {
     localStorage.clear();
-    this.setState({isRedirect: true})
+    this.setState({ isRedirect: true })
   };
 
   copyToClipboard = (e) => {
@@ -162,11 +165,11 @@ export default class Milling extends Component {
   };
 
   selectedReasonHandleChange = event => {
-    this.getStatusByReasonMilling(event.target.value)
+    this.getStatusByReasonMailing(event.target.value)
   }
 
   selectedStatusHandleChange = event => {
-    this.setState({ statusMilling: event.target.value })
+    this.setState({ statusMailing: event.target.value })
   }
 
 
@@ -178,7 +181,11 @@ export default class Milling extends Component {
         {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
         {/* Header */}
         <Navbar bg="primary" variant="dark">
-          <Navbar.Brand>Milling</Navbar.Brand>
+          <Navbar.Brand>
+            <div>
+            {/* <img src={mainLogo} alt="wise" /> */}
+            </div>
+          </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
@@ -194,7 +201,7 @@ export default class Milling extends Component {
             {/* Verifica se quer fazer um atendimento */}
             {!this.state.isAttending &&
               <div>
-                <Button variant="warning" onClick={() => this.nextMilling()}>Iniciar Atendimento</Button>
+                <Button variant="warning" onClick={() => this.nextMailing()}>Iniciar Atendimento</Button>
 
               </div>
             }
@@ -276,7 +283,7 @@ export default class Milling extends Component {
                   <Form.Control as="select" size="md" onChange={this.selectedReasonHandleChange}>
                     <option value="" disabled selected>Selecione</option>
                     {
-                      this.state.reansonMillings.map((e, index) => {
+                      this.state.reansonMailings.map((e, index) => {
 
                         return <option key={index} value={e.reasonMailling}>{e.reasonMailling}</option>
                       })
@@ -289,7 +296,7 @@ export default class Milling extends Component {
                   <Form.Control as="select" size="md" onChange={this.selectedStatusHandleChange}>
                     <option value="" disabled selected>Selecione</option>
                     {
-                      this.state.statusMillings.map((e, index) => {
+                      this.state.statusMailings.map((e, index) => {
 
                         return <option key={index} value={e.id}>{e.description}</option>
                       })
@@ -304,7 +311,7 @@ export default class Milling extends Component {
             </Modal.Footer>
           </Modal>
         </Container>
-        {this.state.isRedirect && <Redirect to={{ pathname : '/', state:{ from: "/milling" } }} />}
+        {this.state.isRedirect && <Redirect to={{ pathname: '/', state: { from: "/mailing" } }} />}
       </div >
     );
   }

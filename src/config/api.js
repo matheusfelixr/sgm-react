@@ -4,8 +4,8 @@ const DEV_CONFIG = {
 
 
 const PRD_CONFIG = {
-    apiUrl : 'http://10.0.0.103:8080/'
+    apiUrl : 'http://10.0.0.101:8080/'
 }
 
 
-export const CONFIG = DEV_CONFIG;
+export const CONFIG = PRD_CONFIG;

@@ -183,7 +183,7 @@ export default class Login extends Component {
             </div>
           }
         </div>
-        {this.state.isRedirect && <Redirect to={{ pathname : '/milling', state:{ from: "/" } }} />}
+        {this.state.isRedirect && <Redirect to={{ pathname : '/mailing', state:{ from: "/" } }} />}
       </div>
     );
   }

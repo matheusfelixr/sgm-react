@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Login from '../page/loginPage';
-import Milling from '../page/millingPage';
+import Mailing from '../page/mailingPage';
 import NotFound from '../page/notFoundPage';
 
 
@@ -15,12 +15,11 @@ export default function RoutesConfig() {
     return (
       <Router>
           <Switch>
-            <PrivateRoute exact path="/milling">
-              <Milling />
+            <PrivateRoute exact path="/mailing">
+              <Mailing />
             </PrivateRoute>
             <Route exact path="/">
               <Login />
-              {console.log("oapoap")}
             </Route>
             <Route exact >
               <NotFound />

@@ -1,7 +1,7 @@
 import {CONFIG} from '../config/api';
 
 
-export function getReansonMilling(){
+export function getReansonMailing(){
 
    var token= localStorage.getItem('token');
 
@@ -15,7 +15,7 @@ export function getReansonMilling(){
     })
 }
 
-export function getStatusByReasonMilling(reasonMailling){
+export function getStatusByReasonMailing(reasonMailling){
     console.log(reasonMailling)
     var token= localStorage.getItem('token');
  

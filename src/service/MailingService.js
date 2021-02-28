@@ -1,7 +1,7 @@
 import { CONFIG } from '../config/api';
 
 
-export function nextMilling() {
+export function nextMailing() {
 
     var token = localStorage.getItem('token');
 
