@@ -20,7 +20,7 @@ class AlertInfo extends React.Component {
             this.setState({ show: false });
         }
         .bind(this),
-        6000
+        10000
     );
 
   }

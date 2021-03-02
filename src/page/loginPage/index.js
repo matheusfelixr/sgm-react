@@ -146,7 +146,7 @@ export default class Login extends Component {
 
                 <Button className="button-login" lassName="login-button" onClick={() => this.authenticate()}>Entrar</Button>
 
-                <LoginContainerClick onClick={() => this.setState({ isResetPassword: true, isLogin: false })}>Esqueci minha Senha</LoginContainerClick>
+                <span className="LoginContainerTextClick" onClick={() => this.setState({ isResetPassword: true, isLogin: false })}>Esqueci minha Senha</span>
               </LoginContainerForm>
             </Form>}
           {/* tela do tipo reset de senha */}
@@ -160,9 +160,9 @@ export default class Login extends Component {
                   <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
                 </Form.Group>
 
-                <Button variant="primary" lassName="login-button" type="submit" onClick={() => this.resetPassword()}>Resetar senha</Button>
+                <Button className="button-login" lassName="login-button" type="submit" onClick={() => this.resetPassword()}>Resetar senha</Button>
 
-                <LoginContainerClick onClick={() => this.setState({ isResetPassword: false, isLogin: true })}>Retornar ao login</LoginContainerClick>
+                <span className="LoginContainerTextClick" onClick={() => this.setState({ isResetPassword: false, isLogin: true })}>Retornar ao login</span>
               </LoginContainerForm>
             </Form>}
 
@@ -180,9 +180,9 @@ export default class Login extends Component {
                   <Form.Control required type="password" placeholder="Repetir nova senha" name="newPassword" onChange={this.handleChange} value={this.state.newPassword} />
                 </Form.Group>
 
-                <Button variant="primary" className="login-button" type="submit" onClick={() => this.newPassword()}>Salvar</Button>
+                <Button className="button-login" className="login-button" type="submit" onClick={() => this.newPassword()}>Salvar</Button>
 
-                <LoginContainerClick onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</LoginContainerClick>
+                <span  className="LoginContainerTextClick" onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</span>
               </LoginContainerForm>
             </Form>
           }

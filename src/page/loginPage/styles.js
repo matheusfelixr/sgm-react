@@ -48,7 +48,7 @@ export const LoginPanel = styled.div`
             font-size : 14px;
         }
 
-        Button{
+        .button-login{
             width : 100%;
             padding : 7px;
             border-radius : 4px;
@@ -57,7 +57,7 @@ export const LoginPanel = styled.div`
             background-color : #2d6c4c;
         }
 
-        Button:hover{
+        .button-login:hover{
             color : #c5c1c1;
             background-color : #276143;
         }
@@ -72,15 +72,13 @@ export const LoginPanel = styled.div`
             font-weight: lighter;
         }
 
+        .LoginContainerTextClick{
+            display:flex;
+            padding-top: 10px;
+            font-size: 15px;
+            right: 1px;
+            cursor: pointer;
+        }
+
     }
-`
-
-export const LoginContainerClick = styled.span`
-    display:flex;
-    padding-top: 10px;
-    font-size: 15px;
-    right: 1px;
-    cursor: pointer;
-
-
 `
