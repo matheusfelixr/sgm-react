@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import './styles.css';
-import {Redirect } from "react-router-dom";
+import './styles.js';
+import { Redirect } from "react-router-dom";
+
+
+import { LoginContainer, LoginPanel } from '../loginPage/styles'
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
 import { authenticate, resetPassword, newPassword } from '../../service/SecurityService'
+
 import AlertInfo from '../../component/AlertInfo';
 import Loader from '../../component/Loader';
 
@@ -31,7 +36,7 @@ export default class Login extends Component {
   componentDidMount() {
     const isLogged = !!localStorage.getItem('token')
     if (isLogged) {
-      this.setState({isRedirect: true})
+      this.setState({ isRedirect: true })
     }
   }
 
@@ -102,7 +107,7 @@ export default class Login extends Component {
         localStorage.clear();
         localStorage.setItem('user', response.data.userName);
         localStorage.setItem('token', response.data.token);
-        this.setState({ isLoader: false, isRedirect: true})
+        this.setState({ isLoader: false, isRedirect: true })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -118,73 +123,63 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
   render() {
-    // document.body.style = 'background: #46a0f5;';
     return (
-      <div>
+      <LoginContainer  >
         <Loader show={this.state.isLoader} />
-        <div className="login">
-          {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
+        {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
+
+        < LoginPanel>
           {/* tela do tipo login */}
           {this.state.isLogin &&
-            <div className="container-login">
-              <Form>
-                <h2>Login</h2>
-                <Form.Group controlId="formBasicUser">
-                  <Form.Label>Usuário</Form.Label>
-                  <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
-                </Form.Group>
+            <Form>
+              <h2>Login</h2>
+              <Form.Group controlId="formBasicUser">
+                <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
+              </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control type="password" placeholder="Senha" name="password" onChange={this.handleChange} value={this.state.password} />
-                </Form.Group>
-                <div className="container-buton">
-                  <Button variant="primary" onClick={() => this.authenticate()}>Entrar</Button>
-                </div>
-                <a onClick={() => this.setState({ isResetPassword: true, isLogin: false })}>Esqueci minha Senha</a>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Control type="password" placeholder="Senha" name="password" onChange={this.handleChange} value={this.state.password} />
+              </Form.Group>
 
-              </Form>
-            </div>}
+              <Button className="button-login" onClick={() => this.authenticate()}>Entrar</Button>
+
+              <a onClick={() => this.setState({ isResetPassword: true, isLogin: false })}>Esqueci minha Senha</a>
+
+            </Form>}
           {/* tela do tipo reset de senha */}
           {this.state.isResetPassword &&
-            <div className="container-login">
-              <Form>
-                <h2>Reset de senha</h2>
-                <Form.Group controlId="formBasicUser">
-                  <Form.Label>Usuário</Form.Label>
-                  <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
-                </Form.Group>
-                <div className="container-buton">
-                  <Button variant="primary" onClick={() => this.resetPassword()}>Resetar senha</Button>
-                </div>
-                <a onClick={() => this.setState({ isResetPassword: false, isLogin: true })}>Retornar ao login</a>
+            <Form>
+              <h2>Reset de senha</h2>
+              <Form.Group controlId="formBasicUser">
+                <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
+              </Form.Group>
 
-              </Form>
-            </div>}
+              <Button variant="primary" type="submit" onClick={() => this.resetPassword()}>Resetar senha</Button>
+
+              <a onClick={() => this.setState({ isResetPassword: false, isLogin: true })}>Retornar ao login</a>
+
+            </Form>}
+
           {/* tela de nova senha*/}
           {this.state.isChangePassword &&
-            <div className="container-login">
-              <Form>
-                <h2>Nova senha</h2>
-                <Form.Group controlId="formBasicUser">
-                  <Form.Label>Nova senha</Form.Label>
-                  <Form.Control required type="password" placeholder="Nova senha" name="password" onChange={this.handleChange} value={this.state.password} />
-                </Form.Group>
-                <Form.Group controlId="formBasicUser">
-                  <Form.Label>Repetir nova senha</Form.Label>
-                  <Form.Control required type="password" placeholder="Repetir nova senha" name="newPassword" onChange={this.handleChange} value={this.state.newPassword} />
-                </Form.Group>
-                <div className="container-buton">
-                  <Button variant="primary" onClick={() => this.newPassword()}>Salvar</Button>
-                </div>
-                <a onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</a>
+            <Form>
+              <h2>Cadastro de nova senha</h2>
+              <Form.Group controlId="formBasicUser">
+                <Form.Control required type="password" placeholder="Nova senha" name="password" onChange={this.handleChange} value={this.state.password} />
+              </Form.Group>
+              <Form.Group controlId="formBasicUser">
+                <Form.Control required type="password" placeholder="Repetir nova senha" name="newPassword" onChange={this.handleChange} value={this.state.newPassword} />
+              </Form.Group>
+              <Button variant="primary" type="submit" onClick={() => this.newPassword()}>Salvar</Button>
 
-              </Form>
-            </div>
+              <a onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</a>
+
+            </Form>
           }
-        </div>
-        {this.state.isRedirect && <Redirect to={{ pathname : '/mailing', state:{ from: "/" } }} />}
-      </div>
+
+        </LoginPanel>
+        {this.state.isRedirect && <Redirect to={{ pathname: '/mailing', state: { from: "/" } }} />}
+      </LoginContainer>
     );
   }
 }

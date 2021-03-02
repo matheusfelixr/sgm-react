@@ -8,4 +8,4 @@ const PRD_CONFIG = {
 }
 
 
-export const CONFIG = PRD_CONFIG;
+export const CONFIG = DEV_CONFIG;
