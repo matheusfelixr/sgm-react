@@ -1,4 +1,4 @@
-import  styled  from 'styled-components'
+import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
     background-image : url('https://i.picsum.photos/id/411/1280/610.jpg?hmac=q43Wwz9jhxPhVC7rE4OhMPiNyjWw82dHXgwpgDSsF2s') ;
@@ -6,6 +6,18 @@ export const LoginContainer = styled.div`
     height : 100%;
     position : relative;
     background-color: #313431;
+
+    span:hover{
+            color : #c5c1c1;
+        }
+`
+export const LoginTitle = styled.h2`
+`
+
+export const LoginContainerForm = styled.div`
+    padding-top: 10px;
+    width: 330px;
+    
 `
 
 export const LoginPanel = styled.div`
@@ -29,7 +41,7 @@ export const LoginPanel = styled.div`
 
         input{
             padding : 5px 10px;
-            width: 313px;
+            width: 100%;
             margin-bottom: 10px;
             border : 0;
             border-radius : 4px;
@@ -38,11 +50,16 @@ export const LoginPanel = styled.div`
 
         Button{
             width : 100%;
-            padding : 10px;
+            padding : 7px;
             border-radius : 4px;
             border : 0;
             color : white;
             background-color : #2d6c4c;
+        }
+
+        Button:hover{
+            color : #c5c1c1;
+            background-color : #276143;
         }
 
         .alert-danger{
@@ -56,4 +73,14 @@ export const LoginPanel = styled.div`
         }
 
     }
+`
+
+export const LoginContainerClick = styled.span`
+    display:flex;
+    padding-top: 10px;
+    font-size: 15px;
+    right: 1px;
+    cursor: pointer;
+
+
 `
