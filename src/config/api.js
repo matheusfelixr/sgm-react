@@ -4,7 +4,7 @@ const DEV_CONFIG = {
 
 
 const PRD_CONFIG = {
-    apiUrl : 'http://10.0.0.101:8080/'
+    apiUrl : 'http://192.168.100.126:8080/'
 }
 
 
