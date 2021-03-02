@@ -1,8 +1,8 @@
-docker build -t sgm-react .
+docker build -t matheusfelixr/sgm-react .
 
-docker push ip:7003/sgm-react:latest
+docker push matheusfelixr/sgm-react
 
-docker pull ip:7003/sgm-react:latest
+docker pull matheusfelixr/sgm-react 
 
-docker run -p 3000:3000 --name sgm-react -d matheusfelixr/sgm-react
+docker run -p 3000:3000 --name sgm-react -d matheusfelixr/sgm-react 
 
