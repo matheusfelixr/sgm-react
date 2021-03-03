@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import { nextMailing, saveAttendance } from '../../service/MailingService'
 import { getReansonMailing, getStatusByReasonMailing } from '../../service/StatusMailingService'
-import { maskCpfOrCnpj, maskPhone } from '../../Uteis/Mask'
+import { maskCpfOrCnpj, maskPhone } from '../../uteis/Mask'
 
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
@@ -15,9 +15,6 @@ import Row from 'react-bootstrap/Row';
 import AlertInfo from '../../component/AlertInfo';
 import Loader from '../../component/Loader';
 import Modal from 'react-bootstrap/Modal'
-
-import mainLogo from '../../images/wise.png';
-
 
 export default class Mailing extends Component {
 
@@ -58,11 +55,11 @@ export default class Mailing extends Component {
   }
 
   nextMailing = () => {
-    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true})
+    this.setState({ error: "", alertShow: false, variant: "danger", isLoader: true })
 
     nextMailing().then(response => {
       if (response.data != null) {
-        this.setState({ error: "Sucesso ao buscar mailing", alertShow: true, variant: "success", form: response.data, isLoader: false , isAttending: true })
+        this.setState({ error: "Sucesso ao buscar mailing", alertShow: true, variant: "success", form: response.data, isLoader: false, isAttending: true })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
       }
@@ -174,7 +171,6 @@ export default class Mailing extends Component {
 
 
   render() {
-    document.body.style = 'background: white;';
     return (
       <div>
         <Loader show={this.state.isLoader} />
@@ -183,7 +179,7 @@ export default class Mailing extends Component {
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand>
             <div>
-            {/* <img src={mainLogo} alt="wise" /> */}
+              {/* <img src={mainLogo} alt="wise" /> */}
             </div>
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -200,10 +196,7 @@ export default class Mailing extends Component {
           <div className="container-info">
             {/* Verifica se quer fazer um atendimento */}
             {!this.state.isAttending &&
-              <div>
-                <Button variant="warning" onClick={() => this.nextMailing()}>Iniciar Atendimento</Button>
-
-              </div>
+              <Button variant="secondary " className="btn-atendance" onClick={() => this.nextMailing()}>Iniciar Atendimento</Button>
             }
             {/* Atendimento */}
             {this.state.isAttending &&
@@ -307,7 +300,7 @@ export default class Mailing extends Component {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="success" onClick={() => this.saveAttendance()}>Finalizar</Button>
+              <Button variant="success" disabled={this.state.statusMailing == ""} onClick={() => this.saveAttendance()}>Finalizar</Button>
             </Modal.Footer>
           </Modal>
         </Container>

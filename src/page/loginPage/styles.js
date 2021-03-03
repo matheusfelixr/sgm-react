@@ -7,12 +7,17 @@ export const LoginContainer = styled.div`
     position : relative;
     background-color: #313431;
 
-    span:hover{
+    .LoginContainerTextClick:hover{
             color : #c5c1c1;
         }
 `
 export const LoginTitle = styled.h2`
 `
+
+export const LoginInfoError = styled.span`
+
+`
+
 
 export const LoginContainerForm = styled.div`
     padding-top: 10px;

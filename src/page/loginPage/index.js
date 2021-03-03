@@ -3,7 +3,7 @@ import './styles.js';
 import { Redirect } from "react-router-dom";
 
 
-import { LoginContainer, LoginPanel, LoginTitle, LoginContainerForm, LoginContainerClick } from '../loginPage/styles'
+import { LoginContainer, LoginPanel, LoginTitle, LoginContainerForm, LoginInfoError } from '../loginPage/styles'
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -126,8 +126,6 @@ export default class Login extends Component {
     return (
       <LoginContainer  >
         <Loader show={this.state.isLoader} />
-        {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
-
         < LoginPanel>
           {/* tela do tipo login */}
           {this.state.isLogin &&
@@ -142,6 +140,7 @@ export default class Login extends Component {
 
                 <Form.Group controlId="formBasicPassword">
                   <Form.Control type="password" placeholder="Senha" name="password" onChange={this.handleChange} value={this.state.password} />
+                  {this.state.alertShow && <LoginInfoError>{this.state.error}</LoginInfoError>}
                 </Form.Group>
 
                 <Button className="button-login" lassName="login-button" onClick={() => this.authenticate()}>Entrar</Button>
@@ -158,6 +157,7 @@ export default class Login extends Component {
               <LoginContainerForm>
                 <Form.Group controlId="formBasicUser">
                   <Form.Control required type="text" placeholder="Usuário" name="user" onChange={this.handleChange} value={this.state.user} />
+                  {this.state.alertShow && <LoginInfoError>{this.state.error}</LoginInfoError>}
                 </Form.Group>
 
                 <Button className="button-login" lassName="login-button" type="submit" onClick={() => this.resetPassword()}>Resetar senha</Button>
@@ -178,11 +178,13 @@ export default class Login extends Component {
                 </Form.Group>
                 <Form.Group controlId="formBasicUser">
                   <Form.Control required type="password" placeholder="Repetir nova senha" name="newPassword" onChange={this.handleChange} value={this.state.newPassword} />
+                  {this.state.alertShow && <LoginInfoError>{this.state.error}</LoginInfoError>}
+
                 </Form.Group>
 
                 <Button className="button-login" className="login-button" type="submit" onClick={() => this.newPassword()}>Salvar</Button>
 
-                <span  className="LoginContainerTextClick" onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</span>
+                <span className="LoginContainerTextClick" onClick={() => this.setState({ isResetPassword: false, isLogin: true, isChangePassword: false })}>Retornar ao login</span>
               </LoginContainerForm>
             </Form>
           }

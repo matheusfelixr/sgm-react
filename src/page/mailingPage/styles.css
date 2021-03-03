@@ -20,3 +20,8 @@
 .cursor-pointer {
     cursor: pointer;
 }
+.btn-atendance{
+    width: 100%;
+    height: 80px;
+    font-size: 30px !important ;
+}
