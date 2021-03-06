@@ -1,7 +1,6 @@
 import React from 'react';
-import './styles.css';
+import { AlertInfoStyle } from './style'
 
-import Alert from 'react-bootstrap/Alert';
 
 
 class AlertInfo extends React.Component {
@@ -9,29 +8,29 @@ class AlertInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show : true,
+            show: true,
         }
     }
 
-    
-  componentDidMount() {
-    setTimeout(
-        function() {
-            this.setState({ show: false });
-        }
-        .bind(this),
-        10000
-    );
 
-  }
+    componentDidMount() {
+        setTimeout(
+            function () {
+                this.setState({ show: false });
+            }
+                .bind(this),
+            10000
+        );
+
+    }
 
     render() {
         return (
-            <div>  
-            {this.state.show  &&
-                <Alert variant={this.props.variant} >{this.props.description} </Alert> }
-                </div>
+            <>
+                {this.state.show &&
+                    <AlertInfoStyle variant={this.props.variant} >{this.props.description} </AlertInfoStyle>}
+            </>
         );
-     }
+    }
 }
 export default AlertInfo;

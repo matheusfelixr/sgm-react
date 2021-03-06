@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './styles.css';
+import {LoaderModal} from './style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,12 +11,12 @@ export default class Loader extends Component {
 
     render() {
         return (
-            <div> {this.props.show &&
+            <> {this.props.show &&
 
-                <div className="modal">
+                <LoaderModal>
                     <FontAwesomeIcon icon={faSync} color='white' spin={true} style={{ fontSize: '70px' }} />
-                </div>}
-            </div>
+                </LoaderModal>}
+            </>
         )
     }
 }

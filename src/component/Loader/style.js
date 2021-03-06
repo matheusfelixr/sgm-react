@@ -1,5 +1,8 @@
+import styled from 'styled-components'
 
-.modal {
+
+export const LoaderModal = styled.div`
+
     position: fixed i !important;
     top: 0 !important;
     left: 0 !important;
@@ -10,4 +13,5 @@
     align-items : center !important;
     justify-content:center !important;
     z-index: 99999 !important;
-}
+
+`
