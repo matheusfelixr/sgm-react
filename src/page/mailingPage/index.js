@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './styles.js';
+import { MailingBtnAtendance } from './styles'
 
-import {MailingContainer, MailingContainerInfo, MailingBtnAtendance} from './styles'
+import '../../global/styles.js';
+import { ContainerForm } from '../../global/styles.js'
 
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -172,79 +174,78 @@ export default class Mailing extends Component {
       <div>
         {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
         <Loader show={this.state.isLoader} />
-        <Header/>
-        <MailingContainer>
-          <MailingContainerInfo>
-            {/* Verifica se quer fazer um atendimento */}
-            {!this.state.isAttending &&
-              <MailingBtnAtendance variant="secondary "  onClick={() => this.nextMailing()}>Iniciar Atendimento </MailingBtnAtendance>
-            }
-            {/* Atendimento */}
-            {this.state.isAttending &&
-              <div>
-                <Form>
-                  <Form.Row>
-                    <Form.Group className="mb-1" controlId="formGridId" onClick={() => this.copyToClipboard(this.state.form.id)}>
-                      <Form.Label>Código</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.id} />
-                    </Form.Group>
+        <Header />
+        <ContainerForm>
 
-                    <Form.Group as={Col} controlId="formGridCampaignCode" onClick={() => this.copyToClipboard(this.state.form.campaignCode)}>
-                      <Form.Label>Código da campanha</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.campaignCode} />
-                    </Form.Group>
+          {/* Verifica se quer fazer um atendimento */}
+          {!this.state.isAttending &&
+            <MailingBtnAtendance variant="secondary " onClick={() => this.nextMailing()}>Iniciar Atendimento </MailingBtnAtendance>
+          }
+          {/* Atendimento */}
+          {this.state.isAttending &&
+            <div>
+              <Form>
+                <Form.Row>
+                  <Form.Group className="mb-1" controlId="formGridId" onClick={() => this.copyToClipboard(this.state.form.id)}>
+                    <Form.Label>Código</Form.Label>
+                    <Form.Control type="text" disabled value={this.state.form.id} />
+                  </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridCustomerKey" onClick={() => this.copyToClipboard(this.state.form.customerKey)}>
-                      <Form.Label>Customer Key</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.customerKey} />
-                    </Form.Group>
-                  </Form.Row>
+                  <Form.Group as={Col} controlId="formGridCampaignCode" onClick={() => this.copyToClipboard(this.state.form.campaignCode)}>
+                    <Form.Label>Código da campanha</Form.Label>
+                    <Form.Control type="text" disabled value={this.state.form.campaignCode} />
+                  </Form.Group>
 
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridCampaign" onClick={() => this.copyToClipboard(this.state.form.campaign)}>
-                      <Form.Label>Campanha</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.campaign} />
-                    </Form.Group>
-                  </Form.Row>
+                  <Form.Group as={Col} controlId="formGridCustomerKey" onClick={() => this.copyToClipboard(this.state.form.customerKey)}>
+                    <Form.Label>Customer Key</Form.Label>
+                    <Form.Control type="text" disabled value={this.state.form.customerKey} />
+                  </Form.Group>
+                </Form.Row>
 
-                  <Form.Row>
-                    <Form.Group className="mb-2 " controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.maskCpfOrCnpj(this.state.form.cpfCnpj))}>
-                      <Form.Label>CPF/CNPJ</Form.Label>
-                      <Form.Control type="text" disabled value={this.maskCpfOrCnpj(this.state.form.cpfCnpj)} />
-                    </Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridCampaign" onClick={() => this.copyToClipboard(this.state.form.campaign)}>
+                    <Form.Label>Campanha</Form.Label>
+                    <Form.Control type="text" disabled value={this.state.form.campaign} />
+                  </Form.Group>
+                </Form.Row>
 
-                    <Form.Group as={Col} controlId="formGridName" onClick={() => this.copyToClipboard(this.state.form.name)}>
-                      <Form.Label>Nome</Form.Label>
-                      <Form.Control type="text" disabled value={this.state.form.name} />
-                    </Form.Group>
-                  </Form.Row>
+                <Form.Row>
+                  <Form.Group className="mb-2 " controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.maskCpfOrCnpj(this.state.form.cpfCnpj))}>
+                    <Form.Label>CPF/CNPJ</Form.Label>
+                    <Form.Control type="text" disabled value={this.maskCpfOrCnpj(this.state.form.cpfCnpj)} />
+                  </Form.Group>
 
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridPhone1" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone1))}>
-                      <Form.Label>Telefone 1</Form.Label>
-                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone1)} />
-                    </Form.Group>
+                  <Form.Group as={Col} controlId="formGridName" onClick={() => this.copyToClipboard(this.state.form.name)}>
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control type="text" disabled value={this.state.form.name} />
+                  </Form.Group>
+                </Form.Row>
 
-                    <Form.Group as={Col} controlId="formGridPhone2" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone2))}>
-                      <Form.Label>Telefone 2</Form.Label>
-                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone2)} />
-                    </Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridPhone1" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone1))}>
+                    <Form.Label>Telefone 1</Form.Label>
+                    <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone1)} />
+                  </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridPhone3" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone3))} >
-                      <Form.Label>Telefone 3</Form.Label>
-                      <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone3)} />
-                    </Form.Group>
-                  </Form.Row>
+                  <Form.Group as={Col} controlId="formGridPhone2" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone2))}>
+                    <Form.Label>Telefone 2</Form.Label>
+                    <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone2)} />
+                  </Form.Group>
 
-                </Form>
-                <Row className="justify-content-end">
-                  <Col xs lg="2" >
-                    <Button  variant="success" onClick={() => this.endService()}>Finalizar</Button>
-                  </Col>
-                </Row>
-              </div>}
-          </MailingContainerInfo>
+                  <Form.Group as={Col} controlId="formGridPhone3" onClick={() => this.copyToClipboard(this.maskPhone(this.state.form.phone3))} >
+                    <Form.Label>Telefone 3</Form.Label>
+                    <Form.Control type="text" disabled value={this.maskPhone(this.state.form.phone3)} />
+                  </Form.Group>
+                </Form.Row>
 
+              </Form>
+              <Row className="justify-content-end">
+                <Col xs lg="2" >
+                  <Button variant="success" onClick={() => this.endService()}>Finalizar</Button>
+                </Col>
+              </Row>
+              </div>
+           }
 
           <Modal show={this.state.isShowModal} onHide={() => this.setState({ isShowModal: false })} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
@@ -284,7 +285,7 @@ export default class Mailing extends Component {
               <Button variant="success" disabled={this.state.statusMailing == ""} onClick={() => this.saveAttendance()}>Finalizar</Button>
             </Modal.Footer>
           </Modal>
-        </MailingContainer>
+        </ContainerForm>
       </div >
     );
   }

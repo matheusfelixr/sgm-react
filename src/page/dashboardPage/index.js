@@ -17,8 +17,7 @@ export default class dashboard extends Component {
     }
   
     componentDidMount() {
-       var opaopa = isAdmin()
-     
+    
          this.setState({isAdminB: isAdmin()})
       }
   
