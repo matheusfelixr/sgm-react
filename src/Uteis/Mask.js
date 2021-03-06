@@ -1,7 +1,7 @@
 
 export function maskCpfOrCnpj(cpfOrCnpj) {
 
-    if (cpfOrCnpj.length == 11) {
+    if (cpfOrCnpj.length === 11) {
 
         return cpfOrCnpj
             .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
@@ -10,7 +10,7 @@ export function maskCpfOrCnpj(cpfOrCnpj) {
             .replace(/(\d{3})(\d{1,2})/, '$1-$2')
             .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
     }
-    if (cpfOrCnpj.length == 14) {
+    if (cpfOrCnpj.length === 14) {
         return cpfOrCnpj
             .replace(/\D/g, '')
             .replace(/(\d{2})(\d)/, '$1.$2')

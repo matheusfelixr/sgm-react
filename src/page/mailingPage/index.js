@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import './styles.css';
+import './styles.js';
 import { Redirect } from "react-router-dom";
+
+import {MailingContainer, MailingContainerInfo, MailingBtnAtendance} from './styles'
+
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Modal from 'react-bootstrap/Modal'
+
+import AlertInfo from '../../component/AlertInfo';
+import Loader from '../../component/Loader';
+import Header from '../../component/Header'
+
 
 import { nextMailing, saveAttendance } from '../../service/MailingService'
 import { getReansonMailing, getStatusByReasonMailing } from '../../service/StatusMailingService'
 import { maskCpfOrCnpj, maskPhone } from '../../uteis/Mask'
-
-import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import AlertInfo from '../../component/AlertInfo';
-import Loader from '../../component/Loader';
-import Modal from 'react-bootstrap/Modal'
 
 export default class Mailing extends Component {
 
@@ -152,11 +155,6 @@ export default class Mailing extends Component {
     this.getReansonMailing()
   };
 
-  exit = () => {
-    localStorage.clear();
-    this.setState({ isRedirect: true })
-  };
-
   copyToClipboard = (e) => {
     navigator.clipboard.writeText(e);
   };
@@ -175,28 +173,13 @@ export default class Mailing extends Component {
       <div>
         <Loader show={this.state.isLoader} />
         {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
-        {/* Header */}
-        <Navbar bg="primary" variant="dark">
-          <Navbar.Brand>
-            <div>
-              {/* <img src={mainLogo} alt="wise" /> */}
-            </div>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              <span className="user"> {localStorage.getItem('user')}  </span>
-              <span className="cursor-pointer" onClick={() => this.exit()}>sair</span>
+        <Header/>
 
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Navbar>
-
-        <Container className="container" >
-          <div className="container-info">
+        <MailingContainer>
+          <MailingContainerInfo>
             {/* Verifica se quer fazer um atendimento */}
             {!this.state.isAttending &&
-              <Button variant="secondary " className="btn-atendance" onClick={() => this.nextMailing()}>Iniciar Atendimento</Button>
+              <MailingBtnAtendance variant="secondary "  onClick={() => this.nextMailing()}>Iniciar Atendimento </MailingBtnAtendance>
             }
             {/* Atendimento */}
             {this.state.isAttending &&
@@ -262,7 +245,7 @@ export default class Mailing extends Component {
                   </Col>
                 </Row>
               </div>}
-          </div>
+          </MailingContainerInfo>
 
 
           <Modal show={this.state.isShowModal} onHide={() => this.setState({ isShowModal: false })} backdrop="static" keyboard={false}>
@@ -303,7 +286,7 @@ export default class Mailing extends Component {
               <Button variant="success" disabled={this.state.statusMailing == ""} onClick={() => this.saveAttendance()}>Finalizar</Button>
             </Modal.Footer>
           </Modal>
-        </Container>
+        </MailingContainer>
         {this.state.isRedirect && <Redirect to={{ pathname: '/', state: { from: "/mailing" } }} />}
       </div >
     );
