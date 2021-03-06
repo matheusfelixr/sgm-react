@@ -27,7 +27,7 @@ export default class Header extends Component {
             <HeaderNavBar bg="primary">
 
                 <HeaderContainerBrand>
-                    <HeaderNavBar.Brand>
+                    <HeaderNavBar.Brand href="/dashboard">
                         SGM
                 </HeaderNavBar.Brand>
                 </HeaderContainerBrand>
@@ -38,12 +38,12 @@ export default class Header extends Component {
                         <HeaderNavDropdown.Item href="#action/3.1">Usuário</HeaderNavDropdown.Item>
                     </HeaderNavDropdown>
                 </HeaderContainerDropdown>
+
                 < HeaderContainerDropdown>
                     <HeaderNavDropdown title="Operações" id="basic-nav-dropdown">
-                        <HeaderNavDropdown.Item href="#action/3.1">Import Mailing</HeaderNavDropdown.Item>
-                        <HeaderNavDropdown.Item href="#action/3.1">Export Mailin</HeaderNavDropdown.Item>
+                        <HeaderNavDropdown.Item href="/import-mailing-file">Import Mailing</HeaderNavDropdown.Item>
+                        <HeaderNavDropdown.Item href="#action/3.1">Export Mailing</HeaderNavDropdown.Item>
                     </HeaderNavDropdown>
-
                 </HeaderContainerDropdown>
 
 
