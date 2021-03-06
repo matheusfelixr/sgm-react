@@ -8,7 +8,7 @@ import {
 
 import Login from '../page/loginPage';
 import Mailing from '../page/mailingPage';
-import Dashboard from '../page/dashboard';
+import Dashboard from '../page/dashboardPage';
 import NotFound from '../page/notFoundPage';
 
 
