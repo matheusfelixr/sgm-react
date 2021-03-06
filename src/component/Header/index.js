@@ -24,7 +24,7 @@ export default class Header extends Component {
 
     render() {
         return (
-            <HeaderNavBar bg="primary" variant="dark">
+            <HeaderNavBar bg="primary">
 
                 <HeaderContainerBrand>
                     <HeaderNavBar.Brand>
