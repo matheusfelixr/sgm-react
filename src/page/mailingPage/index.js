@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './styles.js';
-import { Redirect } from "react-router-dom";
 
 import {MailingContainer, MailingContainerInfo, MailingBtnAtendance} from './styles'
 
@@ -287,7 +286,6 @@ export default class Mailing extends Component {
             </Modal.Footer>
           </Modal>
         </MailingContainer>
-        {this.state.isRedirect && <Redirect to={{ pathname: '/', state: { from: "/mailing" } }} />}
       </div >
     );
   }
