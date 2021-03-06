@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {LoaderModal} from './style'
+import { LoaderModal } from './style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync } from '@fortawesome/free-solid-svg-icons'
 

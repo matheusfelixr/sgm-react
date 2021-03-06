@@ -170,10 +170,9 @@ export default class Mailing extends Component {
   render() {
     return (
       <div>
-        <Loader show={this.state.isLoader} />
         {this.state.alertShow && <AlertInfo description={this.state.error} variant={this.state.variant} alertShow={this.state.alertShow} />}
+        <Loader show={this.state.isLoader} />
         <Header/>
-
         <MailingContainer>
           <MailingContainerInfo>
             {/* Verifica se quer fazer um atendimento */}
@@ -209,7 +208,7 @@ export default class Mailing extends Component {
                   </Form.Row>
 
                   <Form.Row>
-                    <Form.Group className="mb-2" controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.maskCpfOrCnpj(this.state.form.cpfCnpj))}>
+                    <Form.Group className="mb-2 " controlId="formGridCpfCnpj" onClick={() => this.copyToClipboard(this.maskCpfOrCnpj(this.state.form.cpfCnpj))}>
                       <Form.Label>CPF/CNPJ</Form.Label>
                       <Form.Control type="text" disabled value={this.maskCpfOrCnpj(this.state.form.cpfCnpj)} />
                     </Form.Group>
@@ -240,7 +239,7 @@ export default class Mailing extends Component {
                 </Form>
                 <Row className="justify-content-end">
                   <Col xs lg="2" >
-                    <Button variant="success" onClick={() => this.endService()}>Finalizar</Button>
+                    <Button  variant="success" onClick={() => this.endService()}>Finalizar</Button>
                   </Col>
                 </Row>
               </div>}
