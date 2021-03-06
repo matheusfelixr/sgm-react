@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 
+import './styles.js';
+
+// import {MailingContainer, MailingContainerInfo, MailingBtnAtendance} from './styles'
 
 
 import Header from '../../component/Header'
