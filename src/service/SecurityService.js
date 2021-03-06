@@ -60,3 +60,7 @@ export function isAuthenticate() {
 export function logOut() {
     return localStorage.clear()
 }
+
+export function isAdmin() {
+    return localStorage.getItem('isAdmin')
+}

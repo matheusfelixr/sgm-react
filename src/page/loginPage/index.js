@@ -50,9 +50,11 @@ export default class Login extends Component {
     authenticate(authenticateJson).then(response => {
       if (response.data != null) {
         if (!response.data.changePassword) {
+
           localStorage.clear();
           localStorage.setItem('user', response.data.userName);
           localStorage.setItem('token', response.data.token);
+          localStorage.setItem('isAdmin', response.data.isAdmin);
           this.setState({ isLoader: false, isRedirect: true })
         } else {
           this.setState({ isChangePassword: true, isLogin: false, isResetPassword: false, password: "", newPassword: "", user: response.data.userName, token: response.data.token, isLoader: false })
@@ -107,6 +109,8 @@ export default class Login extends Component {
         localStorage.clear();
         localStorage.setItem('user', response.data.userName);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('isAdmin', response.data.isAdmin);
+
         this.setState({ isLoader: false, isRedirect: true })
       } else {
         this.setState({ error: response.errors[0], alertShow: true, variant: "danger", isLoader: false })
@@ -189,7 +193,7 @@ export default class Login extends Component {
             </Form>
           }
         </LoginPanel>
-        {this.state.isRedirect && <Redirect to={{ pathname: '/mailing', state: { from: "/" } }} />}
+        {this.state.isRedirect && <Redirect to={{ pathname: '/dashboard', state: { from: "/" } }} />}
       </LoginContainer>
     );
   }

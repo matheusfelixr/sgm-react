@@ -8,6 +8,7 @@ import {
 
 import Login from '../page/loginPage';
 import Mailing from '../page/mailingPage';
+import Dashboard from '../page/dashboard';
 import NotFound from '../page/notFoundPage';
 
 
@@ -17,6 +18,9 @@ export default function RoutesConfig() {
           <Switch>
             <PrivateRoute exact path="/mailing">
               <Mailing />
+            </PrivateRoute>
+            <PrivateRoute exact path="/dashboard">
+              <Dashboard />
             </PrivateRoute>
             <Route exact path="/">
               <Login />
