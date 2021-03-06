@@ -7,14 +7,15 @@ import NavBar from 'react-bootstrap/NavBar';
 export const HeaderUser = styled.span`
     font-size: 20px;
     margin-right: 20px;
-    color: white;
-    font-weight: bold;
+    color: black;
+    
 `
 
 export const HeaderExit = styled.span`
     cursor: pointer;
 `
 export const HeaderContainerBrand = styled.div`
+  color: black !important;
     margin-left: 20px;
 `
 export const HeaderContainerDropdown = styled.div`
@@ -24,14 +25,16 @@ export const HeaderContainerDropdown = styled.div`
 
 export const HeaderNavDropdown = styled(NavDropdown)`
     .dropdown-toggle {
-      color: #ffffff;
+      color: #777777;
     }
     .nav-link {
     display: block;
-    padding: 0.5rem 38px;
+    padding: 0.5rem 25px;
   }
 
 `
 export const HeaderNavBar = styled(NavBar)`
      padding: 0px 35px;
+    background-color: #e7e7e7 !important;
+
 `
